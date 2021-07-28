@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pikashow Movies</title>
+</head>
+<style>
+    #container{
+        display: flex;
+        flex-direction:column;
+        background-color:#E6DBD0;
+        align-items: center;
+    }
+    header{
+        background-color: #25283D;
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        border-radius: 20px;
+        line-height: 45px;
+        font-size: 35px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: rosybrown;
+    }
+    input{
+        height: 30px;
+        width: 300px;
+        margin-top: 100px;
+        border: 2px rgb(78, 72, 72) solid;
+    }
+    button{
+        margin-top: 30px;
+        background-color: black;
+        height: 30px;
+        width: 150px;
+        color: white;
+    }
+    #movieDetails{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:flex-start;
+        height: 600px;
+        width: 400px;
+        margin-top: 50px;
+        
+    }
+    img{
+        width: 170px;
+    }
+    p{
+        font-size: 20px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        text-align: center;
+        margin: 5px;
+    }
+    #gif{
+        width: 400px;
+    }
+    #ratings{
+        height: 60px;
+        
+    }
+    #tag{
+        background-color: #1D1A05;
+        border-radius: 6px;
+        color: #E6AA68;
+        padding: 5px;
+        display: inline;
+        font-size: 12px;
+    }
+</style>
+<body>
+    <div id="container">
+        <header>MOVIES</header>
+        <input type="text" name="" id="movie">
+        <button onclick="getWeatherData()">SEARCH</button>
+        <div id="movieDetails"></div>
+    </div>
+</body>
+</html>
+<script>
+    
+    async function getWeatherData(){
+
+        let movie = document.getElementById('movie').value
+        try{
+
+        let data = await fetch(`http://www.omdbapi.com/?t=${movie}&i=tt3896198&apikey=7d4812ec`)
+        var finaldata = await data.json()
+        console.log(finaldata);
+        if(finaldata.Response != 'False'){
+        show(finaldata)
+        }
+        else{
+            let div = document.getElementById('movieDetails')
+        div.innerHTML=`<img id="gif"src="https://media.tenor.com/images/6bde4f7e4c7a61f878ac87e25e59416e/tenor.gif" alt="No Movie Found">`
+         
+        }
+        }
+        catch(e) {
+            console.log("e:" ,"fount error");
+        }
+        
+       
+    }
+    function show(d){
+        let div = document.getElementById('movieDetails')
+        div.innerHTML=null
+        let Poster = document.createElement('img')
+        Poster.src=`${d.Poster}`
+        let Title = document.createElement('p')
+        Title.innerText=`Title - ${d.Title}`
+        let Year = document.createElement('p')
+        Year.innerText=`Year - ${d.Year}`
+        let Released = document.createElement('p')
+        Released.innerText=`Released - ${d.Released}`
+        let imdbRating = document.createElement('div')
+        imdbRating.setAttribute('id','ratings')
+        if(d.imdbRating>8.5){
+            imdbRating.innerHTML=`<div id="tag">Recommended</div> <span>IMDB - ${d.imdbRating}</span>`
+        }
+        else{
+        imdbRating.innerHTML=`<span>IMDB - ${d.imdbRating}</span>`
+        }
+        let Country = document.createElement('p')
+        Country.innerText=`Country - ${d.Country}`
+        let Language = document.createElement('p')
+        Language.innerText= `Language - ${d.Language}`
+
+        
+
+        
+        
+        div.append(Poster,Title,Year,Released,Language,Country,imdbRating)
+       // div.append(Title,Year,Released)
+       
+        
+    }
+    
+</script>

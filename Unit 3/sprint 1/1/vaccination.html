@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccination</title>
+</head>
+<style>
+    #btn{
+        width: 200px;
+        height: 50px;
+        background-color: black;
+        color: white;
+    }
+</style>
+<body>
+    <input type="text" name="" id="input">
+    <button id="btn" onclick="register()">Register</button>
+</body>
+</html>
+<script>
+    let q = ['nitish','rahul','neha','preeti','hari','neha2','mohit']
+    function register(){
+        var name = document.getElementById('input').value
+        q.push(name)
+        alert(`${name} your registration is succesfull`)
+
+        let promise = new Promise(function(resolve,reject){
+
+            setInterval(function(){
+
+                if(q[0]==name){
+                resolve("your turn")
+                clearInterval(interval)
+            }
+            
+            },2000)
+           
+
+        })
+        promise.then(function(res){
+            alert(res)
+        })
+    }
+    function vaccinationStart(){
+        q.shift()
+        console.log(q);
+       
+    }
+    var interval = setInterval(vaccinationStart,2000)
+</script>

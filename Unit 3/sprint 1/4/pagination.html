@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Pagination</h1>
+    <div id="data"></div>
+    <div id="buttons"></div>
+</body>
+</html>
+<script>
+    // fetch the data http://jsonplaceholder.typicode.com/comments https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=4ef6104ffc08430d863772d43415fadf
+
+    
+    
+    showButtons(1)
+    var data;
+    var data_div = document.getElementById('data')
+   
+
+    async function main(){
+        data = await fetch_data()
+        console.log(data)
+
+    }
+
+    main()
+    async function fetch_data(){
+
+        try{
+        var d = await fetch("http://jsonplaceholder.typicode.com/comments")
+        data = await d.json()
+        return data
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+    
+        
+    function showButtons(index){
+        console.log(index)
+        let button_div = document.getElementById("buttons")
+        button_div.innerHTML = null
+
+        if(index <= 6){
+            index = 6
+        }
+        for(let i = index-5 ; i<=index+4;i++){
+            let btn = document.createElement('button')
+            btn.innerText=i
+            btn.setAttribute('id',`${i}`)
+            btn.onclick=showData
+            button_div.appendChild(btn)
+        }  
+    }
+    
+
+    function showData(){
+        let id = Number(this.id)
+        
+       let page_data = data.slice((id-1)*10,(id-1)*10+10)
+       
+       data_div.innerHTML=null
+
+       page_data.forEach(element => {
+           let p = document.createElement('p')
+           p.innerText=`${element.id} ${element.name}`
+           data_div.appendChild(p)
+       });
+
+
+       showButtons(id)
+    }
+</script>

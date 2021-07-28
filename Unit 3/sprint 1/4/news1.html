@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #buttons{
+        position: absolute;
+        bottom: 40px;
+        left: 40%;
+    }
+    h1{
+        text-align: center;
+        color: brown;
+        border-bottom: darkred 1px solid;
+    }
+    p{
+        color: dimgray;
+        margin: 20px;
+        margin-bottom: 40px;
+    }
+</style>
+<body>
+    <h1>News</h1>
+    <div id="data"></div>
+    <div id="buttons"></div>
+</body>
+</html>
+<script>
+    // fetch the data  https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=4ef6104ffc08430d863772d43415fadf
+
+    
+    
+    showButtons(1)
+    var data;
+    var data_div = document.getElementById('data')
+    var arr = []
+
+
+
+    async function main(){
+        data = await fetch_data()
+        console.log(data)
+
+    }
+
+    main()
+    async function fetch_data(){
+
+        try{
+        var d = await fetch("https://newsapi.org/v2/top-headlines?country=IN&apiKey=4ef6104ffc08430d863772d43415fadf")
+        data = await d.json()
+        return data.articles
+            
+       
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+    
+        
+    function showButtons(index){
+        console.log(index)
+        let button_div = document.getElementById("buttons")
+        button_div.innerHTML = null
+
+        if(index <= 6){
+            index = 6
+        }
+        for(let i = index-5 ; i<=index+4;i++){
+            let btn = document.createElement('button')
+            btn.innerText=i
+            btn.setAttribute('id',`${i}`)
+            btn.onclick=showData
+            button_div.appendChild(btn)
+        }  
+    }
+    
+
+    function showData(){
+        let id = Number(this.id)
+        
+       let page_data = data.slice((id-1)*2,(id-1)*2+2)
+       
+       data_div.innerHTML=null
+
+       page_data.forEach(element => {
+           let p = document.createElement('p')
+           p.innerText=` * ${element.content}`
+           
+           data_div.appendChild(p)
+       });
+
+
+       showButtons(id)
+    }
+</script>
