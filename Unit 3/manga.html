@@ -13,14 +13,16 @@
     }
 </style>
 <body>
-    <input type="text">
-    <button onclick="search()">Search</button>
+    <input type="text" >
+    <button onclick="search()" >Search</button>
 </body>
 </html>
 <script>
    async function search(){
-    let res= await fetch("https://community-manga-eden.p.rapidapi.com/manga/%7Bmanga.id%7D?manga.id=4e70e9f6c092255ef7004336")
-    let data  = await res.json
+    
+    let res= await fetch("https://datausa.io/api/data?drilldowns=Nation&measures=Population")
+    let data  = await res.json()
         console.log(data)
     }
+    
 </script>
