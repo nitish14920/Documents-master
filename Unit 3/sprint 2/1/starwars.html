@@ -9,7 +9,7 @@
 <style>
     #container{
         background-image:url('https://images.hdqwalls.com/download/star-wars-logo-4k-qw-1280x720.jpg')  ;
-        height: 900px;
+        height: 800px;
         
     }
     #input{
@@ -26,20 +26,21 @@
     }
     button{
         position: absolute;
-        top: 20%;
-        left: 47%;
-        width: 100px;
-        height: 30px;
+        top: 10%;
+        left: 65%;
+        width: 120px;
+        height: 45px;
         background-color: rgb(82, 128, 82);
         border: 2px solid gold;
         border-radius: 10px;
     }
     #append{
+        
         color: white;
         position: absolute;
-        top: 60%;
+        top: 70%;
         left: 33%;
-        display: flex;
+        display: none;
         flex-wrap: wrap;
         flex-direction: column;
         width: 500px;
@@ -52,17 +53,36 @@
         color: goldenrod;
         font-size: 32px;
     }
+    #search_div{
+        display: none;
+        height: 150px;
+        width: 355px;
+        color: wheat;
+        overflow:auto;
+        position: absolute;
+        left: 37%;
+        top: 20%;
+        background-color: #5C5552;
+        border-radius: 5px;
+    }
+    p{
+        padding-left: 20px;
+        font-size: 22px;
+    }
 </style>
 <body>
     <div id="container">
-        <input type="text" name="" id="input" placeholder="Search">
-        <button onclick="fetchData()">SEARCH</button>
+        <input type="text" name="" id="input" placeholder="Search" oninput="throttle(fetchData,1000)">
+        <button onclick="showData()">SEARCH</button>
         <div id="append"></div>
+        <div id="search_div"></div>
     </div>
 </body>
 </html>
 <script>
     var append_div = document.getElementById('append')
+    var search_div = document.getElementById("search_div")
+    var timer_id;
    async function fetchData(){
 
         let input = document.getElementById('input').value
@@ -70,9 +90,11 @@
         let {results} = await res.json()
         console.log(results);
         appendDiv(results[0])
-        
+        search_div.style.display="block"
+        searchdiv(results)
     }
     function appendDiv(d){
+        append_div.innerHTML=null
         var div = document.createElement('div')
         div.innerHTML=`<span>Name: ${d.name}</span>
 <span>Gender: ${d.gender}</span>
@@ -82,5 +104,30 @@
 <span>Hair color: ${d.hair_color}</span>`
  append_div.append(div)
     }
+
+    function throttle(func, delay) {
+    if (timer_id) {
+        return false
+    }
+    timer_id = setTimeout(() => {
+        func(); //main()
+        timer_id = undefined
+    }, delay);
+    }
+
+    function showData(){
+        append_div.style.display="flex"
+        search_div.style.display="none"
+    }
+
+    function searchdiv(s){
+        search_div.innerHTML=null
+            s.forEach((el) => {
+            let p = document.createElement('p')
+            p.innerText=el.name
+            search_div.append(p)
+        });
+    }
+
 </script>
 
