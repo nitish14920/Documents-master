@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    #forms{
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+<body>
+    <!-- <h1>Google</h1> -->
+    <div id="forms">
+        <div>
+            <h1>Register</h1>
+            <form action="" onsubmit="Register(event)">
+                name: <input type="text" name="" id="id1">
+                email: <input type="text" name="" id="id2">
+                password: <input type="text" name="" id="id3">
+                username: <input type="text" name="" id="id4">
+                mobile: <input type="text" name="" id="id5">
+                description: <input type="text" name="" id="id6">
+                <br>
+                <input type="submit" name="" id="" >
+            </form>
+        </div>
+
+        <div>
+            <h1>Login</h1>
+            <form action="">
+
+                password: <input type="text" name="" id="id7">
+                username: <input type="text" name="" id="id8">
+                <br>
+                <input type="submit" name="" id="" onclick="Login()">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+
+    
+    
+    async function Register(e){
+        e.preventDefault()
+
+        let formdata = {
+        name: document.getElementById("id1").value,
+        email: document.getElementById("id2").value,
+        password: document.getElementById("id3").value,
+        username: document.getElementById("id4").value,
+        mobile: document.getElementById("id5").value,
+        description: document.getElementById("id6").value
+
+        }
+        let bodyn = JSON.stringify(formdata)
+        console.log(bodyn)
+
+        try{ var res = await fetch("https://masai-api-mocker.herokupp.com/auth/register",{
+            method:"POST",
+            body:bodyn,
+            headers:{
+                "Content-Type":"application/json",
+            },
+        })
+        nres = await res.json()
+        console.log(nres)
+        }   
+        catch(err){
+        console.log(err);
+        }
+        
+    }
+
+</script>

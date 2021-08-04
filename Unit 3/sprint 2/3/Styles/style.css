@@ -1,0 +1,27 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding: 5px 20px;
+    height: 40px;
+    background-color: #073B3A;
+    line-height: 37px;
+    font-size: 20px;
+}
+a{
+    text-decoration: none;
+    color:#DDB771 ;
+}
+nav > div{
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+   
+}
+#data{
+    display: flex;
+    flex-wrap: wrap;
+}
+#data  img{
+    height: 150px;
+}

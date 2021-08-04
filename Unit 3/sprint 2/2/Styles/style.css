@@ -1,0 +1,43 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding: 5px 20px;
+    height: 40px;
+    background-color: #073B3A;
+    line-height: 37px;
+    font-size: 20px;
+}
+a{
+    text-decoration: none;
+    color:#DDB771 ;
+}
+nav > div{
+    display: flex;
+    width: 500px;
+    justify-content: space-between;
+   
+}
+#data{
+    display: flex;
+    flex-wrap: wrap;
+}
+#data  img{
+    height: 150px;
+}
+input{
+    height: 20px;
+    margin-top: 8px;
+    width: 300px;
+}
+
+#searchbtn{
+    width: 50px;
+    height: 25px;
+    color: rgb(194, 182, 179);
+    background-color: rgb(141, 72, 60);
+    border: none;
+    margin-top: 8px;
+    margin-left: -180px;
+    border-radius: 4px;
+}
